@@ -763,7 +763,9 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
+        
       </section>
+
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
