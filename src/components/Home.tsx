@@ -1,9 +1,3 @@
-// The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-
-// The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-
-// The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-
 import React, { useState, useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -46,14 +40,23 @@ import {
   faCcMastercard,
   faCcPaypal
 } from '@fortawesome/free-brands-svg-icons';
-
-// Import Swiper styles
+import { submitFormAsync, ContactFormData } from '../Api/SubmitFormAsync';
+import { ToastContainer, toast } from 'react-toastify';
 import powerSolar from '../assets/images/power-vision-logo.png'
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import WhatsAppButton from './WhatsAppButton';
 
 const App: React.FC = () => {
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const [activeSection, setActiveSection] = useState('home');
@@ -125,6 +128,12 @@ const App: React.FC = () => {
     }
     setIsMenuOpen(false);
   };
+// const scrollToContact = () => {
+//   if (contactRef.current) {
+//     contactRef.current.scrollIntoView({ behavior: 'smooth' });
+//     setIsMenuOpen(false);
+//   }
+// };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -133,8 +142,31 @@ const App: React.FC = () => {
     });
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseMessage('');
+
+    try {
+      await submitFormAsync(formData);
+      toast.success('Message sent successfully!'); setFormData({ name: '', email: '', phoneNumber: '', message: '' });
+    } catch (err: any) {
+      toast.error(` ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
+      <ToastContainer />
       {/* Navigation Bar */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
@@ -160,9 +192,11 @@ const App: React.FC = () => {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
             ))}
-            <button className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors duration-300 font-medium text-sm whitespace-nowrap !rounded-button cursor-pointer">
+            {/* <button
+            onClick={scrollToContact}
+            className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors duration-300 font-medium text-sm whitespace-nowrap !rounded-button cursor-pointer">
               Get Started
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -188,15 +222,18 @@ const App: React.FC = () => {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
             ))}
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300 font-medium text-sm whitespace-nowrap !rounded-button cursor-pointer font-poppins">
+            {/* <button
+            onClick={scrollToContact}
+            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300 font-medium text-sm whitespace-nowrap !rounded-button cursor-pointer font-poppins">
               Get Started
-            </button>
+            </button> */}
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section id="home" className="pt-20 md:pt-0 min-h-screen flex items-center relative overflow-hidden">
+        <WhatsAppButton />
         <Swiper
           modules={[Pagination, Autoplay, Navigation]}
           pagination={{ clickable: true }}
@@ -232,14 +269,14 @@ const App: React.FC = () => {
                 <div className="max-w-xl text-white fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{slide.title}</h1>
                   <p className="text-xl md:text-2xl mb-8">{slide.subtitle}</p>
-                  <div className="flex space-x-4 font-poppins">
+                  {/* <div className="flex space-x-4 font-poppins">
                     <button className="bg-blue-600  hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-all duration-300 font-medium whitespace-nowrap !rounded-button cursor-pointer">
                       Get Started
                     </button>
                     <button className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white px-8 py-3 rounded-full transition-all duration-300 font-medium whitespace-nowrap !rounded-button cursor-pointer">
                       Learn More
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </SwiperSlide>
@@ -312,7 +349,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
-      
+
       <section id="why-us" className="py-20 bg-white">
         <div className="container mx-auto px-6 font-poppins">
           <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
@@ -573,33 +610,44 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="bg-white rounded-lg shadow-lg p-8 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
               <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-gray-700 mb-2">Full Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all duration-300"
-                      placeholder="Full Name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all duration-300"
-                      placeholder="Email"
-                    />
-                  </div>
+              <form onSubmit={handleSubmit} className="space-y-6">                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-gray-700 mb-2">Full Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border …"
+                    placeholder="Full Name"
+                  />
                 </div>
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border …"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
                 <div>
                   <label htmlFor="phone" className="block text-gray-700 mb-2">Phone Number</label>
                   <input
+                    id="phoneNumber"
+                    name="phoneNumber"
                     type="tel"
-                    id="phone"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all duration-300"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border …"
                     placeholder="Phone Number"
                   />
                 </div>
@@ -607,17 +655,18 @@ const App: React.FC = () => {
                   <label htmlFor="message" className="block text-gray-700 mb-2">Message</label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all duration-300"
-                    placeholder="Tell us about your project..."
-                  ></textarea>
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border …"
+                    placeholder="Tell us about your project…"
+                  />
                 </div>
                 <div>
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-all duration-300 font-medium cursor-pointer whitespace-nowrap !rounded-button"
-                  >
-                    Send Message
+                  <button type="submit" disabled={loading} className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-all duration-300 font-medium cursor-pointer whitespace-nowrap !rounded-button">
+                    {loading ? 'Sending…' : 'Send Message'}
                   </button>
                 </div>
               </form>
@@ -627,8 +676,8 @@ const App: React.FC = () => {
               <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
                 <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                <div className="flex items-start">
-                <div className="w-10 h-10 bg-blue-100  rounded-full flex items-center justify-center mr-4 text-blue-600 flex-shrink-0">
+                  <div className="flex items-start">
+                    <div className="w-10 h-10 bg-blue-100  rounded-full flex items-center justify-center mr-4 text-blue-600 flex-shrink-0">
                       <FontAwesomeIcon icon={faMapMarkerAlt} />
                     </div>
                     <div>
@@ -684,20 +733,33 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-64">
+              <div className="relative bg-white rounded-lg shadow-lg overflow-hidden h-64">
                 <div className="w-full h-full bg-gray-200">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0910623952574!2d-122.41941548468204!3d37.77492977975903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sTwitter%20HQ!5e0!3m2!1sen!2sus!4v1649524245889!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.157761244336!2d76.94469!3d8.4743865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bbb9fdb70d6f%3A0x48f463134dd0dcee!2zOMKwMjgnMjcuOCJOIDc2wrA1NicyMC4yIkU!5e0!3m2!1sen!2sin!4v1715692921041!5m2!1sen!2sin"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Google Maps"
+                    title="Power Vision Solar Location"
                   ></iframe>
                 </div>
+
+                {/* Overlay clickable marker (transparent button) */}
+                <button
+                  onClick={() =>
+                    window.open(
+                      'https://www.google.com/maps/dir/?api=1&destination=8.4743865,76.9472649',
+                      '_blank'
+                    )
+                  }
+                  className="absolute inset-0 w-full h-full z-10 bg-transparent"
+                  title="Navigate to location"
+                ></button>
               </div>
+
             </div>
           </div>
         </div>
@@ -803,4 +865,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
