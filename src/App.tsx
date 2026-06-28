@@ -1,16 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import CreateAccount from './components/Home';
-import Home from './components/Home';
 import './utils/fontAwesome';
+import HomePage from './pages/HomePage';
 
 function App() {
-  return (
-    <div className="App">
-     <Home/>
-    </div>
-  );
+  return <HomePage />;
 }
 
 export default App;
