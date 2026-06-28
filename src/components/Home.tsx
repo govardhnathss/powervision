@@ -47,6 +47,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import WhatsAppButton from './WhatsAppButton';
+import House1 from '../assets/images/House1.jpg';
+import House2 from '../assets/images/House2.jpg';
+import House3 from '../assets/images/House3.jpg';
+
 
 const App: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -58,7 +62,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -128,12 +132,12 @@ const App: React.FC = () => {
     }
     setIsMenuOpen(false);
   };
-// const scrollToContact = () => {
-//   if (contactRef.current) {
-//     contactRef.current.scrollIntoView({ behavior: 'smooth' });
-//     setIsMenuOpen(false);
-//   }
-// };
+  // const scrollToContact = () => {
+  //   if (contactRef.current) {
+  //     contactRef.current.scrollIntoView({ behavior: 'smooth' });
+  //     setIsMenuOpen(false);
+  //   }
+  // };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -404,25 +408,32 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                image: "https://public.readdy.ai/ai/img_res/ca73c1fd70c5fe30a497beb90456eb33.jpg",
+                image: House1,
                 title: "Oakridge Residence",
-                location: "Portland, OR",
-                capacity: "8.5 kW",
-                date: "January 2025"
+                location: "Trivandrum, Mangalapuram",
+                capacity: "5 kW",
+                date: "June 2025",
+                width: "480px",
+                height: "380px",
+
               },
               {
-                image: "https://public.readdy.ai/ai/img_res/274fc848f63b0daa27558ce6709ed8ef.jpg",
+                image: House2,
                 title: "Westfield Office Complex",
                 location: "Seattle, WA",
                 capacity: "125 kW",
-                date: "November 2024"
+                date: "November 2024",
+                 width: "480px",
+                height: "380px",
               },
               {
-                image: "https://public.readdy.ai/ai/img_res/03ea47fb049f5e64eba69097009dbde8.jpg",
+                image: House3,
                 title: "Sunnyvale Solar Farm",
                 location: "Phoenix, AZ",
                 capacity: "2.4 MW",
-                date: "March 2025"
+                date: "March 2025",
+                 width: "480px",
+                height: "380px",
               },
               {
                 image: "https://public.readdy.ai/ai/img_res/3e1b3a48b62bdf97eb67e99d4263331d.jpg",
@@ -453,8 +464,13 @@ const App: React.FC = () => {
               >
                 <div className="aspect-w-3 aspect-h-2">
                   <img
+
                     src={project.image}
                     alt={project.title}
+                    style={{
+                      width: project.width,
+                      height: project.height,
+                    }}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
@@ -763,7 +779,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
       </section>
 
 
