@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -89,7 +93,6 @@ code {
    BUTTONS
 ───────────────────────────────────────── */
 .btn {
-  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
@@ -170,11 +173,11 @@ code {
   align-items: center;
 }
 .logo-img {
-  width: 280px;
-  height: 250px;
+  width: clamp(130px, 35vw, 260px);
+  height: clamp(44px, 11vw, 84px);
   object-fit: contain;
   object-position: left center;
-  margin-left: -45px;
+  margin-left: clamp(-10px, -2.5vw, -45px);
 }
 .navbar__desktop-menu {
   display: none;
@@ -698,6 +701,57 @@ code {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
+  align-items: start;
+}
+.testimonials-swiper {
+  width: 100%;
+  padding-bottom: 2.5rem !important;
+}
+.testimonial-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+.testimonial-nav-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #dbeafe;
+  background: #ffffff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.testimonial-nav-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+.testimonial-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+.testimonial-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: #dbeafe;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 0;
+}
+.testimonial-dot--active {
+  background: #2563eb;
 }
 @media (min-width: 1024px) {
   .testimonials-layout {
@@ -708,7 +762,6 @@ code {
   background-color: #eff6ff;
   border: 1px solid #dbeafe;
   padding: 2.5rem;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -1170,14 +1223,52 @@ code {
 }
 
 /* ─────────────────────────────────────────
+   WHATSAPP BUTTON
+───────────────────────────────────────── */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  background-color: #22c55e;
+  color: #ffffff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+.whatsapp-btn:hover {
+  background-color: #16a34a;
+}
+.whatsapp-btn__icon {
+  font-size: 1.4rem;
+}
+@media (min-width: 640px) {
+  .whatsapp-btn {
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .whatsapp-btn__icon {
+    font-size: 1.75rem;
+  }
+}
+
+/* ─────────────────────────────────────────
    BACK TO TOP
 ───────────────────────────────────────── */
 .back-to-top {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 3rem;
-  height: 3rem;
+  bottom: 6rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   background-color: #2563eb;
   color: #ffffff;
   border: none;
@@ -1187,9 +1278,18 @@ code {
   justify-content: center;
   cursor: pointer;
   z-index: 40;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   transition: background-color 0.2s;
 }
 .back-to-top:hover {
   background-color: #1d4ed8;
+}
+@media (min-width: 640px) {
+  .back-to-top {
+    bottom: 6.5rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+  }
 }

@@ -1,8 +1,6 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuoteLeft, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faQuoteLeft, faPlay, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 interface TestimonialsSectionProps {
@@ -23,35 +21,51 @@ const videos = [
 ];
 
 const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ sectionRef }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prev = () => setActiveIndex(i => (i === 0 ? testimonials.length - 1 : i - 1));
+  const next = () => setActiveIndex(i => (i === testimonials.length - 1 ? 0 : i + 1));
+
+  const t = testimonials[activeIndex];
+
   return (
     <section id="feedback" ref={sectionRef} className="section section--white">
       <div className="container">
-        <div className="section-header fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+        <div className="section-header">
           <p className="section-label">Testimonials</p>
           <h2 className="section-title">What Our Clients Say</h2>
           <div className="section-divider" />
         </div>
         <div className="testimonials-layout">
-          <div className="fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
-            <Swiper modules={[Pagination, Autoplay]} pagination={{ clickable: true }} autoplay={{ delay: 5000, disableOnInteraction: false }} loop className="h-full">
-              {testimonials.map((t, index) => (
-                <SwiperSlide key={index}>
-                  <div className="testimonial-card">
-                    <FontAwesomeIcon icon={faQuoteLeft} className="testimonial-card__quote-icon" />
-                    <p className="testimonial-card__quote">"{t.quote}"</p>
-                    <div className="testimonial-card__author">
-                      <img src={t.image} alt={t.name} className="testimonial-card__avatar" />
-                      <div>
-                        <h4 className="testimonial-card__name">{t.name}</h4>
-                        <p className="testimonial-card__role">{t.title}</p>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          {/* Custom slider */}
+          <div className="testimonial-slider">
+            <div className="testimonial-card">
+              <FontAwesomeIcon icon={faQuoteLeft} className="testimonial-card__quote-icon" />
+              <p className="testimonial-card__quote">"{t.quote}"</p>
+              <div className="testimonial-card__author">
+                <img src={t.image} alt={t.name} className="testimonial-card__avatar" />
+                <div>
+                  <h4 className="testimonial-card__name">{t.name}</h4>
+                  <p className="testimonial-card__role">{t.title}</p>
+                </div>
+              </div>
+            </div>
+            <div className="testimonial-controls">
+              <button onClick={prev} className="testimonial-nav-btn" aria-label="Previous">
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <div className="testimonial-dots">
+                {testimonials.map((_, i) => (
+                  <button key={i} onClick={() => setActiveIndex(i)} className={`testimonial-dot${i === activeIndex ? ' testimonial-dot--active' : ''}`} aria-label={`Slide ${i + 1}`} />
+                ))}
+              </div>
+              <button onClick={next} className="testimonial-nav-btn" aria-label="Next">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </div>
           </div>
-          <div className="fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          {/* Video grid */}
+          <div>
             <div className="videos-grid">
               {videos.map((video, index) => (
                 <div key={index} className="video-card">

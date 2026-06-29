@@ -180,12 +180,13 @@ const App: React.FC = () => {
 
       {/* ── Navigation ── */}
       <nav className={`fixed top-0 left-0 w-full z-50 bg-white shadow-sm border-b border-gray-100 transition-transform duration-300 will-change-transform ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-24">
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16 sm:h-20 md:h-24">
           <div className="flex items-center">
             <img
               src={powerSolar}
               alt="Power Vision Solar"
-              style={{ width: '280px', height: '250px', objectFit: 'contain', objectPosition: 'left center', marginLeft: '-45px' }}
+              className="object-contain"
+              style={{ width: 'clamp(140px, 38vw, 260px)', height: 'clamp(48px, 12vw, 86px)', objectPosition: 'left center', marginLeft: 'clamp(-12px, -3vw, -45px)' }}
             />
           </div>
 
@@ -260,9 +261,9 @@ const App: React.FC = () => {
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${slide.image})` }} />
               <div className="max-w-7xl mx-auto px-6 h-full flex items-center relative z-20">
                 <div className="max-w-2xl text-white">
-                  <p className="text-blue-300 text-xs font-bold uppercase tracking-widest mb-5">Power Vision Solar — Kerala's Trusted Energy Partner</p>
-                  <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">{slide.title}</h1>
-                  <p className="text-xl text-blue-100 mb-10 leading-relaxed">{slide.subtitle}</p>
+                  <p className="text-blue-300 text-xs font-bold uppercase tracking-widest mb-3 md:mb-5">Power Vision Solar — Kerala's Trusted Energy Partner</p>
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6">{slide.title}</h1>
+                  <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 md:mb-10 leading-relaxed">{slide.subtitle}</p>
                   <div className="flex flex-wrap gap-4">
                     <button onClick={() => scrollToSection('contact')} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 font-semibold transition-colors duration-200 cursor-pointer">
                       Get Free Quote
@@ -284,7 +285,7 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Stats Strip ── */}
-      <section id="stats" className="bg-blue-900 py-16">
+      <section id="stats" className="bg-blue-900 py-10 md:py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -303,13 +304,13 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Services ── */}
-      <section id="services" ref={servicesRef} className="py-24 bg-white">
+      <section id="services" ref={servicesRef} className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">What We Offer</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-6" />
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Comprehensive solar solutions tailored to your needs, ensuring maximum efficiency and long-term sustainability.</p>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">Comprehensive solar solutions tailored to your needs, ensuring maximum efficiency and long-term sustainability.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -320,7 +321,7 @@ const App: React.FC = () => {
               { icon: faChartLine, title: "Energy Monitoring", description: "Advanced monitoring systems to track performance and optimize energy production in real time." },
               { icon: faFileContract, title: "Consultation & Design", description: "Expert consultation and custom system design based on your energy needs and property specifications." }
             ].map((service, index) => (
-              <div key={index} className="border border-gray-100 p-8 hover:border-blue-200 hover:shadow-lg transition-all duration-300 group fade-in-section opacity-0 translate-y-10 transition-all duration-1000" style={{ transitionDelay: `${index * 100}ms` }}>
+              <div key={index} className="border border-gray-100 p-5 md:p-8 hover:border-blue-200 hover:shadow-lg transition-all duration-300 group fade-in-section opacity-0 translate-y-10 transition-all duration-1000" style={{ transitionDelay: `${index * 100}ms` }}>
                 <div className="w-14 h-14 bg-blue-50 flex items-center justify-center mb-6 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                   <FontAwesomeIcon icon={service.icon} className="text-xl" />
                 </div>
@@ -336,13 +337,13 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Why Choose Us ── */}
-      <section id="why-us" className="py-24 bg-blue-50">
+      <section id="why-us" className="py-12 md:py-24 bg-blue-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">Our Strengths</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Power Vision?</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose Power Vision?</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-6" />
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">We don't just install solar panels — we deliver complete, reliable, and future-ready energy solutions.</p>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">We don't just install solar panels — we deliver complete, reliable, and future-ready energy solutions.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -353,7 +354,7 @@ const App: React.FC = () => {
               { icon: faGlobe, title: 'Sustainable Future', description: 'Partnering with us means committing to a greener, cleaner future for your community.' },
               { icon: faHandsHelping, title: 'Customer-First Support', description: 'Ongoing maintenance, real-time monitoring, and a dedicated service team always ready to help.' }
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white p-8 shadow-sm hover:shadow-md transition-all duration-300 fade-in-section opacity-0 translate-y-10" style={{ transitionDelay: `${idx * 100}ms` }}>
+              <div key={idx} className="bg-white p-5 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 fade-in-section opacity-0 translate-y-10" style={{ transitionDelay: `${idx * 100}ms` }}>
                 <div className="flex items-start gap-5">
                   <div className="w-12 h-12 bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
                     <FontAwesomeIcon icon={feature.icon} />
@@ -370,14 +371,14 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Awards ── */}
-      <section id="awards" className="py-24 bg-white">
+      <section id="awards" className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">Recognition</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Awards & Achievements</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Awards & Achievements</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto" />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-blue-100 to-blue-50 -z-10" />
               <img src={MetroAward} alt="Metro MSME Awards 2024 - Power Vision Best Innovation in Solar Solutions" className="shadow-2xl w-full object-cover" />
@@ -387,7 +388,7 @@ const App: React.FC = () => {
                 <FontAwesomeIcon icon={faCertificate} className="text-amber-600" />
                 Metro MSME Awards 2024 — 7th Edition
               </div>
-              <h3 className="text-3xl font-bold text-gray-900">Best Innovation in <span className="text-blue-600">Solar Solutions</span></h3>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Best Innovation in <span className="text-blue-600">Solar Solutions</span></h3>
               <p className="text-gray-600 leading-relaxed">Power Vision was honored with the prestigious <strong>Metro MSME Award 2024</strong> for Best Innovation in Solar Solutions — recognizing our pioneering approach to sustainable energy technology and our transformative impact on communities across Kerala.</p>
               <p className="text-gray-500 leading-relaxed text-sm">Presented in association with SIDBI, K-BIP (Kerala Bureau of Industrial Promotion), and Metro Journal — reflecting our commitment to cutting-edge solar solutions that set new industry benchmarks.</p>
               <div className="pt-2">
@@ -404,13 +405,13 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Projects ── */}
-      <section id="projects" ref={projectsRef} className="py-24 bg-gray-50">
+      <section id="projects" ref={projectsRef} className="py-12 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">Our Work</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-6" />
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Explore our portfolio of successful solar installations across various sectors and locations.</p>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">Explore our portfolio of successful solar installations across various sectors and locations.</p>
           </div>
           <div className="flex flex-wrap justify-center mb-10 gap-2 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             {['All Projects', 'Residential', 'Commercial', 'Industrial'].map((filter, index) => (
@@ -447,25 +448,25 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Testimonials ── */}
-      <section id="feedback" ref={feedbackRef} className="py-24 bg-white">
+      <section id="feedback" ref={feedbackRef} className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">Testimonials</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto" />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             <div className="fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
-              <Swiper modules={[Pagination, Autoplay]} pagination={{ clickable: true }} autoplay={{ delay: 5000, disableOnInteraction: false }} loop className="h-full">
+              <Swiper modules={[Pagination, Autoplay]} pagination={{ clickable: true }} autoplay={{ delay: 5000, disableOnInteraction: false }} loop autoHeight className="w-full pb-10">
                 {[
                   { quote: "Power Vision transformed our home with a seamless solar installation. We're saving significantly on energy bills. The team was professional and made the entire process stress-free.", name: "Jennifer Anderson", title: "Homeowner", image: "https://public.readdy.ai/ai/img_res/ccd731270f698a1778af30aaf120eb15.jpg" },
                   { quote: "As a business owner, Power Vision provided clear ROI projections that made the decision easy. The installation was completed ahead of schedule and has outperformed our expectations.", name: "Michael Rodriguez", title: "Business Owner", image: "https://public.readdy.ai/ai/img_res/13f0b07cd25239c7dd778c7483261794.jpg" },
                   { quote: "We chose Power Vision for our sustainability initiative and they delivered exceptional results. Minimal disruption and great ongoing support throughout.", name: "Sarah Thompson", title: "School Administrator", image: "https://public.readdy.ai/ai/img_res/f878b4053f9fc80128cbe9d7af1f13b4.jpg" }
                 ].map((testimonial, index) => (
                   <SwiperSlide key={index}>
-                    <div className="bg-blue-50 border border-blue-100 p-10 h-full flex flex-col">
+                    <div className="bg-blue-50 border border-blue-100 p-6 md:p-10 flex flex-col">
                       <FontAwesomeIcon icon={faQuoteLeft} className="text-blue-600 text-3xl opacity-30 mb-6" />
-                      <p className="text-gray-700 leading-relaxed mb-8 flex-grow text-lg italic">"{testimonial.quote}"</p>
+                      <p className="text-gray-700 leading-relaxed mb-6 md:mb-8 flex-grow text-base md:text-lg italic">"{testimonial.quote}"</p>
                       <div className="flex items-center gap-4 pt-6 border-t border-blue-100">
                         <img src={testimonial.image} alt={testimonial.name} className="w-14 h-14 rounded-full object-cover" />
                         <div>
@@ -511,17 +512,17 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Contact ── */}
-      <section id="contact" ref={contactRef} className="py-24 bg-gray-50">
+      <section id="contact" ref={contactRef} className="py-12 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+          <div className="text-center mb-10 md:mb-16 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
             <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">Get In Touch</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-6" />
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Ready to start your solar journey? Our team is here for a free consultation and custom quote.</p>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">Ready to start your solar journey? Our team is here for a free consultation and custom quote.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3 bg-white border border-gray-100 shadow-sm p-10 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Send Us a Message</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12">
+            <div className="lg:col-span-3 bg-white border border-gray-100 shadow-sm p-6 md:p-10 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 md:mb-8">Send Us a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -547,8 +548,8 @@ const App: React.FC = () => {
               </form>
             </div>
             <div className="lg:col-span-2 space-y-6 fade-in-section opacity-0 translate-y-10 transition-all duration-1000">
-              <div className="bg-blue-900 text-white p-8">
-                <h3 className="text-xl font-bold mb-6">Contact Information</h3>
+              <div className="bg-blue-900 text-white p-6 md:p-8">
+                <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Contact Information</h3>
                 <div className="space-y-5">
                   {[
                     { icon: faMapMarkerAlt, label: 'Address', value: 'Malson Tower, Manacaud, Trivandrum - 09' },
@@ -588,9 +589,9 @@ const App: React.FC = () => {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="bg-blue-900 text-white pt-16 pb-8" style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
+      <footer className="bg-blue-900 text-white pt-10 pb-6 md:pt-16 md:pb-8" style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-blue-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 pb-8 md:pb-12 border-b border-blue-800">
             <div>
               <img src={powerSolar} alt="Power Vision Solar" className="h-12 w-auto object-contain mb-4" style={{ filter: 'brightness(0) invert(1)' }} />
               <p className="text-blue-200 text-sm leading-relaxed mb-6">Providing sustainable solar energy solutions for residential and commercial properties since 2010.</p>
@@ -648,7 +649,7 @@ const App: React.FC = () => {
       {/* Back to Top */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white shadow-lg flex items-center justify-center transition-all duration-300 z-40 cursor-pointer ${isScrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'}`}
+        className={`fixed bottom-4 right-4 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white shadow-lg flex items-center justify-center transition-all duration-300 z-40 cursor-pointer ${isScrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'}`}
       >
         <FontAwesomeIcon icon={faArrowUp} />
       </button>

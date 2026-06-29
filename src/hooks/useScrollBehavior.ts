@@ -44,7 +44,7 @@ export const useScrollBehavior = () => {
           entry.target.classList.remove('opacity-0', 'translate-y-10');
         }
       });
-    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    }, { root: null, rootMargin: '0px', threshold: 0 });
 
     document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
 
